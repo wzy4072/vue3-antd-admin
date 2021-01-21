@@ -4,7 +4,7 @@ const baseUrl = '/businessBasic'
 enum Api {
   login = '/businessBasic/businessBasic/userLogin/login',
   logout = '/businessBasic/userLogin/loginOut',
-  leftMenuTreeBean = '/businessBasic/businessBasic/menuManage/leftMenuTreeBean'
+  leftMenuTreeBean = '/businessBasic/businessBasic/menuManage/leftMenuTreeBean',
 }
 
 /**

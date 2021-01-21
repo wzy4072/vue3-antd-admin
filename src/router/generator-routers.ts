@@ -18,7 +18,6 @@ const list2tree = (items, parentId = -1, arr = []) => {
       const { icon, id, name, parentId, sort, keepAlive, meta, url } = item
 
       const path = url.startsWith('/') ? url : '/' + url
-
       // 路由对应的组件
       const component =
         constantRouterComponents[path] ||
