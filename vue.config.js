@@ -154,20 +154,19 @@ module.exports = {
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://us-la-cn2.sakurafrp.com:59660',
+                target: 'http://us-la-cn2.sakurafrp.com:59660/api/v1',
                 // target: 'http://localhost:8888',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': '/api/v1'
+                    '^/api': ''
                 }
             },
             '/yxj': {
-                // target: 'http://us-la-cn2.sakurafrp.com:59660',
                 target: 'http://192.168.0.72:9100',
                 // target: 'http://192.168.1.128:7000',  // fcf
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/yxj': ''
+                    '^/yxj': '/api'
                 }
             },
         }

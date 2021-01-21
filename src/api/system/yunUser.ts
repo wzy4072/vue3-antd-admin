@@ -4,7 +4,7 @@ const baseUrl = '/businessBasic'
 enum Api {
   login = '/businessBasic/businessBasic/userLogin/login',
   logout = '/businessBasic/userLogin/loginOut',
-  getMenu = '/businessBasic/menumanage/widget_menu'
+  leftMenuTreeBean = '/businessBasic/businessBasic/menuManage/leftMenuTreeBean'
 }
 
 /**
@@ -18,8 +18,22 @@ export function login(params: LoginParams) {
       params
     },
     {
-      isTransformRequestResult: false
+      isParseToJson: true,
+      isShowMessage: true,
+      successMessageText: 'YUN登录成功'
     }
+  )
+}
+/**
+ * @description: 用户菜单
+ */
+export function leftMenuTreeBean() {
+  return http.request(
+    {
+      url: Api.leftMenuTreeBean,
+      method: 'POST'
+    },
+    {}
   )
 }
 
