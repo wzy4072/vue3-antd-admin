@@ -40,7 +40,7 @@ const transform: AxiosTransform = {
     } = options
 
     const reject = Promise.reject
- 
+
     const { data } = res
     //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
     const { code, result, message } = data
@@ -238,7 +238,25 @@ const transform: AxiosTransform = {
     return error
   }
 }
+const transformResponse = function(data) {
+  data = JSON.parse(data)
+  if (data.code === 1001) {
+    store.dispatch('user/Logout').then(res => {
+      // location.reload()
+    })
+  }
 
+  // 兼容两套接口返回
+  if (data.status === 0 || data.code === '0') {
+    data = {
+      code: 0,
+      result: data.data,
+      message: data.msg
+    }
+  }
+  //------------------
+  return data
+}
 const Axios = new VAxios({
   timeout: 15 * 1000,
   // 基础接口地址
@@ -250,6 +268,7 @@ const Axios = new VAxios({
   headers: { 'Content-Type': ContentTypeEnum.JSON },
   // 数据处理方式
   transform,
+  transformResponse,
   // 配置项，下面的选项都可以在独立的接口请求中覆盖
   requestOptions: {
     isParseToJson: true,

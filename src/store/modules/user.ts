@@ -45,7 +45,6 @@ const user: Module<UserStateType, any> = {
       return new Promise((resolve, reject) => {
         login(userInfo)
           .then(response => {
-            debugger
             const { result, code } = {
               code: 0,
               result: { token: response.access_token }
@@ -109,23 +108,25 @@ const user: Module<UserStateType, any> = {
           })
       })
     },
-
     // 登出
     Logout({ commit, state }) {
       return new Promise(resolve => {
-        commit('SET_ROLES', '')
-        commit('SET_INFO', '')
-        Storage.remove(ACCESS_TOKEN)
-        Storage.remove(CURRENT_USER)
-        resolve('')
-        // logout(state.token).then(() => {
-        //     commit('SET_TOKEN', '')
-        //     commit('SET_ROLES', [])
-        //     Storage.remove(ACCESS_TOKEN)
-        //     resolve()
-        // }).catch(() => {
-        //     resolve()
-        // })
+        // commit('SET_ROLES', '')
+        // commit('SET_INFO', '')
+        // Storage.remove(ACCESS_TOKEN)
+        // Storage.remove(CURRENT_USER)
+        // resolve({ message: '登出成功！' })
+        logout({token: state.token})
+          .then(() => {
+            commit('SET_TOKEN', '')
+            commit('SET_ROLES', [])
+            Storage.remove(ACCESS_TOKEN)
+            Storage.remove(ACCESS_TOKEN)
+            resolve({ message: '登出成功！' })
+          })
+          .catch(() => {
+            // resolve({ message: '登出失败！' })
+          })
       })
     }
   }

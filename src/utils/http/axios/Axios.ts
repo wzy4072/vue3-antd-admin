@@ -97,16 +97,7 @@ export class VAxios {
       if (responseInterceptors && isFunction(responseInterceptors)) {
         res = responseInterceptors(res);
       }
-      //------------------
-      // 兼容两套接口返回
-      if (res.data.status === 0 || res.data.code === '0') {
-        res.data = {
-          code:0,
-          result:res.data.data,
-          message:res.data.msg
-        }
-      }
-      //------------------
+
       return res;
     }, undefined);
 

@@ -8,13 +8,11 @@
       rowKey="userId"
     >
       <!-- :row-selection="rowSelection" -->
-      <template v-slot:title>
+      <template v-slot:action>
+
+          <!-- @click="addItem" -->
+        <a-button type="primary" size="small">查看</a-button> 
         <!-- <a-button
-          v-permission="{ action: 'create', effect: 'disabled' }"
-          @click="addItem"
-          type="primary"
-        >添加</a-button>
-        <a-button
           @click="deleteItems"
           v-permission="{ action: 'delete' }"
           :disabled="isDisabled"

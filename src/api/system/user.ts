@@ -9,7 +9,7 @@ import {
 enum Api {
   // login = '/admin/login',
   login = '/businessBasic/businessBasic/userLogin/login',
-  logout = '/login/logout'
+  logout = '/businessBasic/businessBasic/userLogin/loginOut'
 }
 
 /**
