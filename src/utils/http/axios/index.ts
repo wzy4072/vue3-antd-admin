@@ -242,7 +242,10 @@ const transformResponse = function(data) {
   data = JSON.parse(data)
   if (data.code === 1001) {
     store.dispatch('user/Logout').then(res => {
-      // location.reload()
+      router
+        .replace({
+          name: 'login'
+        })
     })
   }
 

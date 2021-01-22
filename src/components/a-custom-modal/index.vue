@@ -88,6 +88,7 @@ export default defineComponent({
     }
   },
   setup(props, ctx: SetupContext ) {
+    debugger
       return useModal(props, ctx)
   }
 })
