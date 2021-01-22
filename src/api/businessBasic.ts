@@ -1,6 +1,6 @@
 import http from '@/utils/http/axios'
 enum Api {
-  getMenuTreeByGroupId = '/businessBasic/menuManage/getMenuTreeByGroupId'
+  getMenuTreeByGroupId = '/businessBasic/businessBasic/userManage/getUserList'
 }
 
 /**
@@ -11,5 +11,7 @@ export function getMenuTreeByGroupId(params) {
     url: Api.getMenuTreeByGroupId,
     method: 'POST',
     params
+  },{
+    // isTransformRequestResult:false
   })
 }

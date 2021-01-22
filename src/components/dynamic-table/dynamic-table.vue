@@ -1,15 +1,15 @@
 <template>
   <a-table
-      :columns="columns"
-      :loading="loading"
-      :rowSelection="rowSelection"
-      :rowKey="rowKey"
-      size="middle"
-      :data-source="data"
-      :pagination="pageOption"
-      @change="paginationChange"
-      bordered
-      v-bind="{...$props, ...$attrs}"
+    :columns="columns"
+    :loading="loading"
+    :rowSelection="rowSelection"
+    :rowKey="rowKey"
+    size="middle"
+    :data-source="data"
+    :pagination="pageOption"
+    @change="paginationChange"
+    bordered
+    v-bind="{...$props, ...$attrs}"
   >
     <!--  自定义slots start-->
     <template v-for="(value, key) in $slots" v-slot:[key]="slotProps">
@@ -19,12 +19,17 @@
     <!--    自定义slots end-->
 
     <!--    是否有自定义显示slots start-->
-    <template v-for="slotItem in columns.filter(item => item.slots)"
-              :key="slotItem.dataIndex || slotItem.slots.customRender"
-              v-slot:[slotItem.slots.customRender]="slotProps">
-
+    <template
+      v-for="slotItem in columns.filter(item => item.slots)"
+      :key="slotItem.dataIndex || slotItem.slots.customRender"
+      v-slot:[slotItem.slots.customRender]="slotProps"
+    >
       <!--        自定义渲染start-->
-      <slot v-if="$slots[slotItem.slots.customRender]" :name="slotItem.slots.customRender" v-bind="slotProps"></slot>
+      <slot
+        v-if="$slots[slotItem.slots.customRender]"
+        :name="slotItem.slots.customRender"
+        v-bind="slotProps"
+      ></slot>
       <!--        自定义渲染end-->
 
       <!--     非自定义渲染start -->
@@ -33,53 +38,58 @@
         <template v-if="slotItem.slots.customRender !== 'action'">
           <!--        使用自定义组件格式化显示start-->
           <template v-if="slotItem.slotsType == 'component'">
-            <component :is="slotItem.slotsFunc(slotProps.record)"/>
+            <component :is="slotItem.slotsFunc(slotProps.record)" />
           </template>
           <!--        使用自定义组件格式化显示end-->
           <!--        使用自定义函数格式化显示-->
-          <template v-if="slotItem.slotsType == 'format'">
-            {{ slotItem.slotsFunc(slotProps.record[slotItem.dataIndex || slotItem.key], slotProps.record) }}
-          </template>
+          <template
+            v-if="slotItem.slotsType == 'format'"
+          >{{ slotItem.slotsFunc(slotProps.record[slotItem.dataIndex || slotItem.key], slotProps.record) }}</template>
           <!--        链接用于跳转-->
           <template v-if="slotItem.slotsType == 'link'">
-            <router-link :to="slotItem.linkPath + slotProps.record[slotItem.linkId]">{{ slotProps.text }}</router-link>
+            <router-link
+              :to="slotItem.linkPath + slotProps.record[slotItem.linkId]"
+            >{{ slotProps.text }}</router-link>
           </template>
         </template>
         <!--      非操作 end-->
 
         <!--        操作start-->
-        <div v-if="slotItem.slots.customRender == 'action'" :key="slotItem.slots.customRender" class="actions">
+        <div
+          v-if="slotItem.slots.customRender == 'action'"
+          :key="slotItem.slots.customRender"
+          class="actions"
+        >
           <!--        对表格的操作动作start-->
           <template v-for="(action, index) in actions">
             <template v-if="action.type == 'select'">
               <!--              下拉选择器-->
-              <a-select
-                  v-model:value="slotProps.record[action.key]"
-                  :key="index"
-                  size="small"
-              >
-                <Option v-for="option in action.options" :value="option.value" :key="option.value">
-                  {{ option.label }}
-                </Option>
+              <a-select v-model:value="slotProps.record[action.key]" :key="index" size="small">
+                <Option
+                  v-for="option in action.options"
+                  :value="option.value"
+                  :key="option.value"
+                >{{ option.label }}</Option>
               </a-select>
             </template>
             <!--            编辑按钮-->
             <template v-if="action.type ==  'button'">
-              <a-button v-permission="action.permission"
-                        v-bind="{...buttonProps,...action.props}" @click="actionEvent(slotProps.record, action.func)"
-                        :key="index">
-                {{ action.text }}
-              </a-button>
+              <a-button
+                v-permission="action.permission"
+                v-bind="{...buttonProps,...action.props}"
+                @click="actionEvent(slotProps.record, action.func)"
+                :key="index"
+              >{{ action.text }}</a-button>
             </template>
             <!--            删除按钮 气泡确认框-->
             <template v-if="action.type == 'popconfirm'">
-              <a-popconfirm :key="index" placement="leftTop" @confirm="actionEvent(slotProps.record, action.func, 'del')">
-                <template v-slot:title>
-                  您确定要删除吗？
-                </template>
-                <a-button v-bind="{...buttonProps,...action.props}">
-                  {{ action.text }}
-                </a-button>
+              <a-popconfirm
+                :key="index"
+                placement="leftTop"
+                @confirm="actionEvent(slotProps.record, action.func, 'del')"
+              >
+                <template v-slot:title>您确定要删除吗？</template>
+                <a-button v-bind="{...buttonProps,...action.props}">{{ action.text }}</a-button>
               </a-popconfirm>
             </template>
           </template>
@@ -165,7 +175,12 @@ export default defineComponent({
         ...params
       }
       state.loading = true
-      const {data, pageNumber, pageSize, total} = await props.getListFunc(params).finally(() => state.loading = false)
+      const listRes = await props.getListFunc(params).finally(() => state.loading = false)
+      // 这里要处理
+//       const data = listRes.data.data
+//       const pageNumber = listRes.data.page
+// const pageSize
+      const {data, page:pageNumber, limit:pageSize, count:total} = listRes
       Object.assign(state.pageOption, {current: ~~pageNumber, pageSize: ~~pageSize, total: ~~total})
       state.data = data
     }

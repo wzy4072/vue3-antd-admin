@@ -6,7 +6,8 @@ import {
 } from './model/menuModel';
 
 enum Api {
-  adminMenus = '/admin/menus',
+  // adminMenus = '/admin/menus',
+  adminMenus = '/businessBasic/businessBasic/menuManage/leftMenuTreeBean',
   GetBtnCodeListByUserId = '/getBtnCodeListByUserId',
 }
 
@@ -16,7 +17,7 @@ enum Api {
 export function adminMenus() {
   return http.request<GetMenuListByUserIdResult>({
     url: Api.adminMenus,
-    method: 'GET',
+    method: 'POST',
   });
 }
 

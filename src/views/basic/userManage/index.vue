@@ -1,16 +1,15 @@
 <template>
   <div>
-    ?
     <a-button @click="refreshTable" type="primary">刷新</a-button>
     <dynamic-table
       ref="tableRef"
       :columns="columns"
       :get-list-func="getMenuTreeByGroupId"
-      rowKey="id"
+      rowKey="userId"
     >
       <!-- :row-selection="rowSelection" -->
       <template v-slot:title>
-        <a-button
+        <!-- <a-button
           v-permission="{ action: 'create', effect: 'disabled' }"
           @click="addItem"
           type="primary"
@@ -20,7 +19,7 @@
           v-permission="{ action: 'delete' }"
           :disabled="isDisabled"
           type="primary"
-        >删除</a-button>
+        >删除</a-button> -->
       </template>
     </dynamic-table>
   </div>
@@ -46,7 +45,7 @@ export default defineComponent({
       tableRef,
       getMenuTreeByGroupId,
       columns,
-      refreshTable
+      refreshTable,
     }
   }
 })

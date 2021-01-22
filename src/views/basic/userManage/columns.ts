@@ -14,7 +14,7 @@ export const columns: TableColumn[] = [
     dataIndex: 'index',
     title: '序号',
     width: 65,
-    customRender: (text, record, index) => index + 1
+    customRender: ({text, record, index}) => index + 1
   },
   { dataIndex: 'loginName', title: '用户编号' },
   { dataIndex: 'userName', title: '姓名' },

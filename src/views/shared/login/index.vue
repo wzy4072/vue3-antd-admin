@@ -2,30 +2,32 @@
   <div class="login-box">
     <div class="login-logo">
       <svg-icon icon-class="logo" />
-<!--      <img src="~@/assets/images/logo.png" alt="">-->
+      <!--      <img src="~@/assets/images/logo.png" alt="">-->
       <h1>Antd Admin</h1>
     </div>
     <a-form layout="horizontal" :model="formInline" @submit="handleSubmit" @submit.prevent>
       <a-form-item>
-        <a-input v-model:value="formInline.username" size="large" placeholder="admin">
-          <template v-slot:prefix><user-outlined type="user"/></template>
+        <a-input v-model:value="formInline.loginName" size="large" placeholder="admin">
+          <template v-slot:prefix>
+            <user-outlined type="user" />
+          </template>
         </a-input>
       </a-form-item>
       <a-form-item>
-        <a-input v-model:value="formInline.password" size="large" type="password" placeholder="123456" autocomplete="new-password">
-          <template v-slot:prefix><lock-outlined type="user"/></template>
-        </a-input>
-      </a-form-item>
-      <a-form-item>
-        <a-button
-            type="primary"
-            html-type="submit"
-            size="large"
-            :loading="loading"
-            block
+        <a-input
+          v-model:value="formInline.password"
+          size="large"
+          type="password"
+          placeholder="1"
+          autocomplete="new-password"
         >
-          登录
-        </a-button>
+          <template v-slot:prefix>
+            <lock-outlined type="user" />
+          </template>
+        </a-input>
+      </a-form-item>
+      <a-form-item>
+        <a-button type="primary" html-type="submit" size="large" :loading="loading" block>登录</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -43,6 +45,7 @@ import {useStore} from 'vuex'
 import {login} from "@/api/system/user";
 
 import {SvgIcon} from '@/components/svg-icon'
+import { sha256 } from 'js-sha256'
 
 export default defineComponent({
   name: "login",
@@ -51,8 +54,8 @@ export default defineComponent({
     const state = reactive({
       loading: false,
       formInline: {
-        username: '',
-        password: '',
+        loginName: 'admin',
+        password: '1',
       }
     })
 
@@ -61,14 +64,14 @@ export default defineComponent({
     const route = useRoute()
 
     const handleSubmit = async () => {
-      const {username, password} = state.formInline
-      if(username.trim() == '' || password.trim() == '') return message.warning('用户名或密码不能为空！')
+      const {loginName, password} = state.formInline
+      if(loginName.trim() == '' || password.trim() == '') return message.warning('用户名或密码不能为空！')
       const hide = message.loading('登录中...', 0)
       state.loading = true
       console.log(state.formInline)
       const params = {
-        username,
-        password
+        loginName,
+        password: sha256(password)
       }
       // params.password = md5(password)
       const {code, result, message: msg} = await store.dispatch('user/Login', params).finally(() => {
@@ -103,7 +106,7 @@ export default defineComponent({
   padding-top: 240px;
   flex-direction: column;
   align-items: center;
-  background: url("~@/assets/login.svg");
+  background: url('~@/assets/login.svg');
   background-size: 100%;
 
   .login-logo {
@@ -124,15 +127,15 @@ export default defineComponent({
     }
   }
 
-    ::v-deep(.ant-form) {
-      width: 400px;
+  ::v-deep(.ant-form) {
+    width: 400px;
 
-      .ant-col {
-        width: 100%;
-      }
-      .ant-form-item-label {
-        padding-right: 6px;
-      }
+    .ant-col {
+      width: 100%;
+    }
+    .ant-form-item-label {
+      padding-right: 6px;
+    }
   }
 }
 </style>

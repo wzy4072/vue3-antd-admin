@@ -22,3 +22,5 @@ export const constantRouterComponents = {
  '/businessBasic/workflow': () => import(/* webpackChunkName: "workflow" */ '@/views/basic/workflow/workflow.vue'),
  '/businessBasic/workflow/processConfigurationMain': () => import(/* webpackChunkName: "workflow/processConfigurationMain" */ '@/views/basic/workflow/processConfigurationMain.vue'),
 }
+
+

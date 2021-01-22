@@ -1,26 +1,30 @@
-import http from '@/utils/http/axios';
+import http from '@/utils/http/axios'
 import {
   LoginParams,
   LoginResultModel,
   GetUserInfoByUserIdParams,
-  GetUserInfoByUserIdModel,
-} from './model/userModel';
+  GetUserInfoByUserIdModel
+} from './model/userModel'
 
 enum Api {
-  login = '/admin/login',
-  logout = '/login/logout',
+  // login = '/admin/login',
+  login = '/businessBasic/businessBasic/userLogin/login',
+  logout = '/login/logout'
 }
 
 /**
  * @description: 获取用户信息
  */
 export function getUserInfo() {
-  return http.request({
-    url: Api.login,
-    method: 'POST',
-  }, {
-    isTransformRequestResult: false
-  });
+  return http.request(
+    {
+      url: Api.login,
+      method: 'POST'
+    },
+    {
+      isTransformRequestResult: false
+    }
+  )
 }
 
 /**
@@ -30,23 +34,24 @@ export function login(params: LoginParams) {
   return http.request({
     url: Api.login,
     method: 'POST',
-    params,
-  }, {
-    isTransformRequestResult: false,
-  });
+    params
+  })
 }
 
 /**
  * @description: 用户修改密码
  */
 export function changePassword(params, uid) {
-  return http.request({
-    url: `/user/u${uid}/changepw`,
-    method: 'POST',
-    params,
-  }, {
-    isTransformRequestResult: false
-  });
+  return http.request(
+    {
+      url: `/user/u${uid}/changepw`,
+      method: 'POST',
+      params
+    },
+    {
+      isTransformRequestResult: false
+    }
+  )
 }
 
 /**
@@ -56,6 +61,6 @@ export function logout(params) {
   return http.request({
     url: Api.logout,
     method: 'POST',
-    params,
-  });
+    params
+  })
 }

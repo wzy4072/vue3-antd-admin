@@ -141,13 +141,14 @@ const transform: AxiosTransform = {
     // ]
 
     // config.url = isDev ? `/api${config.url}` : `${apiUrl || ''}${config.url}`
+    config.url = `/yxj${config.url}`
 
     // 两个
-    if (isDev) {
-      config.url = config.url?.includes('businessBasic')
-        ? `/yxj${config.url}`
-        : `/api${config.url}`
-    }
+    // if (isDev) {
+    //   config.url = config.url?.includes('businessBasic')
+    //     ? `/yxj${config.url}`
+    //     : `/api${config.url}`
+    // }
 
     if (config.method === RequestEnum.GET) {
       const now = new Date().getTime()
@@ -190,13 +191,14 @@ const transform: AxiosTransform = {
   requestInterceptors: config => {
     // 请求之前处理config
     const token = store.getters.token
-    const yunToken = storage.get('YUN_ACCESS_TOKEN')
-    if (yunToken) {
-      config.headers['access_token'] = yunToken
-    }
+    // const yunToken = storage.get('YUN_ACCESS_TOKEN')
+    // if (yunToken) {
+    //   config.headers['access_token'] = yunToken
+    // }
     if (token) {
       // jwt token
-      config.headers.token = token
+      config.headers.access_token = token
+      // config.headers.token = token
     }
     return config
   },

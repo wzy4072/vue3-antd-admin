@@ -67,8 +67,40 @@ export const generatorDynamicRouter = () => {
   return new Promise((resolve, reject) => {
     adminMenus()
       .then(result => {
-        console.log('result', result)
-
+        result = [
+          {
+            name: 'system',
+            id: 66,
+            url: '/system',
+            icon: 'icon-gonggao',
+            parentId: -1,
+            sort: 0
+          },
+          {
+            name: 'access',
+            id: 1001,
+            url: '/system/access',
+            icon: 'icon-gonggao',
+            parentId: 66,
+            sort: 0
+          },
+          {
+            name: 'account',
+            id: 1002,
+            url: '/system/account',
+            icon: 'icon-gonggao',
+            parentId: 66,
+            sort: 0
+          },
+          {
+            name: 'role',
+            id: 1003,
+            url: '/system/role',
+            icon: 'icon-gonggao',
+            parentId: 66,
+            sort: 0
+          }
+        ]
         const menuNav: any = []
         const childrenNav = []
         //      后端数据, 根级树数组,  根级 PID
@@ -76,6 +108,7 @@ export const generatorDynamicRouter = () => {
         // rootRouter.children = childrenNav
         menuNav.push(childrenNav)
         const routeList = [...list2tree(formatYunMenus), ...list2tree(result) ]
+        // const routeList = list2tree(formatYunMenus)
         console.log(routeList, '根据后端返回的权限路由生成')
         routeList.forEach(item => {
           // 设置模块重定向到菜单
