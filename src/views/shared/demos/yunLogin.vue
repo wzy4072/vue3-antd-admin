@@ -5,6 +5,8 @@
         <a-button @click="submitLogin" type="primary">登录</a-button>
       </template>
     </schema-form>
+    <hr/>
+    <demo1 v-bind="{...childProps}"></demo1>
   </a-card>
 </template>
 
@@ -17,7 +19,7 @@ import { getFormSchema } from './yunLogin/form-schema'
 import { login } from '@/api/system/yunUser'
 import { sha256 } from 'js-sha256'
 import { createStorage } from '@/utils/Storage'
-
+import demo1 from './demo1.vue'
 const Storage = createStorage()
 
 /**
@@ -25,7 +27,7 @@ const Storage = createStorage()
  */
 export default defineComponent({
   name: 'custom-yxj',
-  components: { [Alert.name]: Alert, [Card.name]: Card, AButton, SchemaForm },
+  components: { [Alert.name]: Alert, [Card.name]: Card, AButton, SchemaForm ,demo1},
 
   setup() {
     const dynamicForm = ref<any>(null)
@@ -42,7 +44,13 @@ export default defineComponent({
         console.log('YUN_ACCESS_TOKEN', Storage.get('YUN_ACCESS_TOKEN'))
       })
     }
+    const childProps = {
+      a:'sss',
+      b:'dddd',
+      c:'443456777'
+    }
     return {
+      childProps,
       submitLogin,
       dynamicForm,
       formSchema: getFormSchema(dynamicForm)
