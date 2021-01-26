@@ -12,12 +12,11 @@
       :layout="descProps.layout || 'horizontal'"
     >
       <a-descriptions-item
-        v-for="(item, index) in detailValues"
+        v-for="(item, index) in itemList"
         :key="'key' + index"
         :label="item.label"
         :span="item.span || 1"
-      >
-        666{{ item.value }}
+      >{{ item.value }}
       </a-descriptions-item>
     </a-descriptions>
 
@@ -28,37 +27,38 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, SetupContext } from 'vue'
-import { Descriptions } from 'ant-design-vue'
-
-interface DescItem {
+import { defineComponent, PropType,ref, SetupContext } from 'vue'
+import { Descriptions,Button ,Modal} from 'ant-design-vue'
+export interface DescItem {
   span?: number;
   label: string;
   value: string | number;
 }
-interface DescProps {
+export interface DescProps {
   bordered?: boolean;
   column?: number;
   layout?: 'horizontal' | 'vertical';
 }
 
-export default {
+export default defineComponent({
   components: {
     [Descriptions.name]: Descriptions,
-    [Descriptions.Item.name]: Descriptions.Item
+    [Descriptions.Item.name]: Descriptions.Item,
+    [Button.name]:Button,
+     [Modal.name]: Modal,
   },
-  emits: ['update:visible'],
+  // emits: ['update:visible'],
   props: {
     title: {
       type: String as PropType<string>,
       default: '详情'
     },
-    visible: {
-      // 弹出显隐
-      type: Boolean as PropType<boolean>,
-      default: false
-    },
-    detailValues: {
+    // visible: {
+    //   // 弹出显隐
+    //   type: Boolean as PropType<boolean>,
+    //   default: false
+    // },
+    itemList: {
       type: Object as PropType<DescItem[]>
     },
     descProps: {
@@ -71,14 +71,18 @@ export default {
     }
   },
   setup(props, ctx: SetupContext) {
+    const visible = ref(true)
+    visible.value = true
     const closeModal = () => {
-      ctx.emit('update:visible', false)
+      visible.value = false
+      // ctx.emit('update:visible', false)
     }
     return {
-      closeModal
+      closeModal,
+      visible
     }
   }
-}
+})
 </script>
 
 <style>

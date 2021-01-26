@@ -176,10 +176,6 @@ export default defineComponent({
       }
       state.loading = true
       const listRes = await props.getListFunc(params).finally(() => state.loading = false)
-      // 这里要处理
-//       const data = listRes.data.data
-//       const pageNumber = listRes.data.page
-// const pageSize
       const {data, page:pageNumber, limit:pageSize, count:total} = listRes
       Object.assign(state.pageOption, {current: ~~pageNumber, pageSize: ~~pageSize, total: ~~total})
       state.data = data

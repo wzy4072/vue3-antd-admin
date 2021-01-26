@@ -4,7 +4,8 @@ enum Api {
   getBasicCorpList = '/businessBasic/businessBasic/basicAuth/getBasicCorpList',
   getCertList = '/businessBasic/businessBasic/userManage/getCertList',
   checkUserIsExist = '/businessBasic/businessBasic/userManage/checkUserIsExist',
-  saveUser = '/businessBasic/businessBasic/userManage/saveUser'
+  saveUser = '/businessBasic/businessBasic/userManage/saveUser',
+  updStatus = '/businessBasic/businessBasic/userManage/updStatus'
 }
 
 /**
@@ -70,7 +71,33 @@ export function saveUser(params: { loginName: string }) {
       params
     },
     {
-      isTransformRequestResult: false
+      isTransformRequestResult: false,
+      isShowMessage: true,
+      isShowSuccessMessage: true,
+      isShowErrorMessage: true
+    }
+  )
+}
+/**
+ * @description: 更新用户状态
+ */
+
+export function updStatus(params: {
+  idNum: string;
+  userId: string;
+  userSts: 'S' | 'N';
+}) {
+  return http.request(
+    {
+      url: Api.updStatus,
+      method: 'POST',
+      params
+    },
+    {
+      isShowMessage: true,
+      isShowSuccessMessage: true,
+      isShowErrorMessage: true,
+      errorMessageText: '修改失败'
     }
   )
 }

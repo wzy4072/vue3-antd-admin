@@ -1,4 +1,5 @@
-import { FormSchema } from '@/types/schema'
+import { FormSchema, FormItem } from '@/types/schema'
+
 // import {getAdminRole, getAdminRoleAccess} from "@/api/system/role";
 import {
   getBasicCorpList,
@@ -17,18 +18,12 @@ function validaLoginName(rule, value) {
 }
 
 // 与vue2的里面的data一样，函数返回新对象防止多处共用同一对象,造成数据混乱
-export const getFormSchema = (): FormSchema => ({
-  // style?: object; // 表单样式
-  // formItemLayout?: object; // 表单布局
-  // watchKeys?: string[];
-  // watchCallback?: (watchKeys: string[], {dynamicForm, modelRef}) => any;
-  // formItem:  FormItem[];
-
-  formItem: [
+export const getFormSchema = (defaultValue?): FormSchema => {
+  const formItem: FormItem[] = [
     {
       type: 'select',
       label: '单位',
-      field: 'corpInfo',
+      field: 'corpId',
       value: '1233b5444ce248e3a06bb3851c5b9876',
       props: {
         placeholder: '请选择'
@@ -51,7 +46,7 @@ export const getFormSchema = (): FormSchema => ({
       type: 'input',
       label: '用户姓名',
       field: 'userName',
-      value: '斯蒂芬',
+      value: '红太狼',
       props: {
         placeholder: '请输入用户名'
       },
@@ -75,7 +70,9 @@ export const getFormSchema = (): FormSchema => ({
       label: '手机号',
       field: 'telNum',
       value: '',
-      props: {},
+      props: {
+        validateTrigger: 'blur'
+      },
       rules: [{ pattern: /^1[3456789]\d{9}$/, message: '手机号码格式不正确!' }]
     },
 
@@ -114,20 +111,20 @@ export const getFormSchema = (): FormSchema => ({
       type: 'input',
       label: '账户名',
       field: 'loginName',
-      value: '666',
+      value: 'test3',
       props: {
         // validateTrigger: 'blur'
       },
       rules: [
         { required: true, message: '账户名必填!' },
-        { validator: validaLoginName}
+        { validator: validaLoginName }
       ]
     },
     {
       type: 'radio',
       label: '性别',
       field: 'gender',
-      value: '',
+      value: '1',
       options: [
         { value: '1', label: '男' },
         { value: '2', label: '女' }
@@ -172,54 +169,13 @@ export const getFormSchema = (): FormSchema => ({
       type: 'radio',
       label: '登录方式',
       field: 'loginType',
-      value: '',
+      value: '0',
       options: [
         { value: '0', label: '用户密码方式' },
         { value: '1', label: '证书认证方式' },
         { value: '2', label: '证书认证方式+用户密码方式' }
       ]
     }
-
-    // {
-    //   type: 'input',
-    //   label: '密码',
-    //   field: 'password',
-    //   hidden: false, // 是否隐藏
-    //   value: '',
-    //   props: {
-    //     type: 'password',
-    //     placeholder: '请输入密码'
-    //   },
-    //   rules: [
-    //     {
-    //       required: true,
-    //       message: '密码不能为空'
-    //     }
-    //   ]
-    // },
-    // {
-    //   type: 'checkbox',
-    //   label: '角色',
-    //   field: 'roles',
-    //   value: [],
-    //   options: [],
-    //   loading: true,
-    //   rules: [
-    //     {
-    //       required: true,
-    //       message: '请选择角色',
-    //       type: 'array'
-    //     }
-    //   ],
-    //   asyncOptions: async () => {
-    //     // 异步数据回调
-    //     // 获取角色列表
-    //     const { data } = await getAdminRole({})
-    //     return data.map(item => ({
-    //       label: item.title,
-    //       value: item.id
-    //     }))
-    //   }
-    // }
   ]
-})
+  return { formItem }
+}

@@ -162,9 +162,9 @@ module.exports = {
                 }
             },
             '/yxj': {
-                // target: 'http://192.168.0.72:9100',
+                target: 'http://192.168.0.72:9100',
                 // target: 'http://192.168.1.128:7000',  // fcf
-                target: 'https://sales.bytteryun.com/', 
+                // target: 'https://sales.bytteryun.com/', 
                 changeOrigin: true,
                 pathRewrite: {
                     '^/yxj': '/api'
