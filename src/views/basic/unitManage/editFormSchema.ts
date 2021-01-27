@@ -76,16 +76,30 @@ export const getFormSchema = (defaultValue?): FormSchema => {
       field: 'province_city',
       value: [],
       options: [],
-      props:{
-        fieldNames:{ label: 'provinceName', value: 'provinceId', children: 'children' }
+      props: {
+        // fieldNames: {
+        //   label: 'provinceName',
+        //   value: 'provinceId',
+        //   children: 'children'
+        // },
+        loadData: async selectedOptions => {
+          const targetOption = selectedOptions[selectedOptions.length - 1]
+          const { value: parentId } = targetOption
+          debugger
+          targetOption.loading = true
+          const result = await getCityList({ parentId })
+          debugger
+          targetOption.loading = false
+          targetOption.children = result
+        }
       },
       asyncOptions: async () => {
         const result = await getProvinceList()
-        // const nv = result.map(item => {
-        //   const { provinceId: value, provinceName: label } = item
-        //   return { value, label }
-        // })
-        return  await getProvinceList()
+        return  result.map(item => {
+          const { provinceId: value, provinceName: label } = item
+          return { value, label,children:[] }
+        })
+        return await getProvinceList()
       }
     }
     // {}

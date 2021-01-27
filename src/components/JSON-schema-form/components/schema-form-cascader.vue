@@ -2,8 +2,11 @@
   <a-cascader
     v-model:value="modelValue"
     v-on="formItem.eventObject"
-    v-bind="formItem.props"
-    :options="formItem.options"
+    v-bind="{
+      ...formItem.props,
+      options: formItem.options,
+      loadData: formItem.loadData
+    }"
   >
   </a-cascader>
 </template>
@@ -39,9 +42,9 @@ export default defineComponent({
     //     localOptions.value = props.formItem.options
     //   }
     // )
+
     return {
-      modelValue,
-      // localOptions
+      modelValue
     }
   }
 })
