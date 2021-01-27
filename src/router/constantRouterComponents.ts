@@ -11,7 +11,7 @@ export const constantRouterComponents = {
     
     '/businessBasic': markRaw(RouterTransition), // 基础管理管理
  '/businessBasic/steupBlackWhiteList': () => import(/* webpackChunkName: "steupBlackWhiteList" */ '@/views/basic/steupBlackWhiteList.vue'),
- '/businessBasic/unitManage': () => import(/* webpackChunkName: "unitManage" */ '@/views/basic/unitManage.vue'),
+ '/businessBasic/unitManage': () => import(/* webpackChunkName: "unitManage" */ '@/views/basic/unitManage/index.vue'),
  '/businessBasic/userManage': () => import(/* webpackChunkName: "userManage" */ '@/views/basic/userManage/index.vue'),
  '/businessBasic/roleManage': () => import(/* webpackChunkName: "roleManage" */ '@/views/basic/roleManage.vue'),
  '/businessBasic/accountGrantManage': () => import(/* webpackChunkName: "accountGrantManage" */ '@/views/basic/accountGrantManage.vue'),

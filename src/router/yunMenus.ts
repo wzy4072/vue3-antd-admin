@@ -58,7 +58,7 @@ const yunMenus = [
         url: '/businessBasic/unitManage',
         list: [],
         keepAlive: '',
-        component: '/businessBasic/unitManage',
+        // component: '/businessBasic/unitManage/index.vue',
         redirect: '',
         hidden: '0',
         vueName: 'unitManage',

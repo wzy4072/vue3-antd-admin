@@ -1,5 +1,5 @@
 import { FormSchema, FormItem } from '@/types/schema'
-
+import getBasicCorpItem from '@/components/schemaFormConfig/BasicCorpSelect'
 // import {getAdminRole, getAdminRoleAccess} from "@/api/system/role";
 import {
   getBasicCorpList,
@@ -20,28 +20,7 @@ function validaLoginName(rule, value) {
 // 与vue2的里面的data一样，函数返回新对象防止多处共用同一对象,造成数据混乱
 export const getFormSchema = (defaultValue?): FormSchema => {
   const formItem: FormItem[] = [
-    {
-      type: 'select',
-      label: '单位',
-      field: 'corpId',
-      value: '1233b5444ce248e3a06bb3851c5b9876',
-      props: {
-        placeholder: '请选择'
-      },
-      rules: [
-        {
-          required: true,
-          message: '不能为空'
-        }
-      ],
-      asyncOptions: async () => {
-        const result = await getBasicCorpList({})
-        return result.map(item => ({
-          label: item.corpName,
-          value: item.corpId
-        }))
-      }
-    },
+    getBasicCorpItem(),
     {
       type: 'input',
       label: '用户姓名',

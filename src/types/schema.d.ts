@@ -1,7 +1,9 @@
 import {VNode, ComponentInternalInstance, HTMLAttributes} from 'vue'
+
 import {RuleObject} from 'ant-design-vue/lib/form/interface'
 import {FormItemProps} from 'ant-design-vue/lib/form/FormItem'
 import {FormProps, ValidationRule} from 'ant-design-vue/lib/form/Form'
+
 
 declare interface OptionItem {
     label: string;
@@ -14,7 +16,7 @@ type Rule = ValidationRule & {
 }
 
 declare interface FormItem extends Partial<typeof FormItemProps>{
-    type?: 'input' | 'textarea' | 'select' | 'tree-select' | 'radio' | 'checkbox' | 'input-number' | 'inputRange' | 'switch' | VNode;
+    type?: 'input' | 'textarea' | 'select' | 'tree-select' | 'radio' | 'checkbox' | 'input-number' | 'inputRange' | 'switch' | 'cascader' | VNode;
     label?: string; // 表单标签
     field: string; // 表单字段
     value: any; // 表单默认值
@@ -27,7 +29,10 @@ declare interface FormItem extends Partial<typeof FormItemProps>{
     asyncOptions?: (formItem: FormItem, formInstance: ComponentInternalInstance | null) => Promise<any>; // 异步选项的数据
     hidden?: boolean; // 是否隐藏表单项
     placeholder?: string;
+    // validateTrigger?:  string as PropType<string | string[]>;
+    // validateTrigger?:'blur' | 'change' | ['change', 'blur'];
 }
+
 
 declare interface FormSchema extends Partial<typeof FormProps>{
     style?: object; // 表单样式

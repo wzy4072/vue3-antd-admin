@@ -155,7 +155,8 @@ export default defineComponent({
       'checkbox',
       'input-number',
       'input-range',
-      'switch'
+      'switch',
+      'cascader'
     ]
 
     // 获取组件名称

@@ -2,7 +2,7 @@ import type { App } from 'vue';
 
 import {AButton} from '@/components/button/'
 
-import {Modal, Table, Menu, Input, Form,Card, Checkbox, Radio} from 'ant-design-vue';
+import {Modal, Table, Menu, Input, Form,Card, Checkbox, Radio, Divider} from 'ant-design-vue';
 
 import 'ant-design-vue/dist/antd.css';
 
@@ -16,5 +16,6 @@ export function setupAntd(app: App<Element>) {
         .use(Menu)
         .use(Card)
         .use(Checkbox)
+        .use(Divider)
         .use(Radio);
 }
